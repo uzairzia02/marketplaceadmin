@@ -4,6 +4,7 @@ import Orders from "../orderdetails/page";
 import AddProduct from "../addproduct/page";
 import AllProducts from "../allproducts/page";
 import { FaHeadphones } from "react-icons/fa";
+import ProtectedRoute from "@/app/components/protected/page";
 
 export default function Dashboard1() {
   const [selectedComponent, setSelectedComponent] = useState("Orders");
@@ -23,6 +24,7 @@ export default function Dashboard1() {
   };
 
   return (
+    <ProtectedRoute>
     <div className=" min-h-screen flex">
       {/* Left Panel (Sidebar) */}
       
@@ -53,6 +55,11 @@ export default function Dashboard1() {
           >
             All Products
           </li>
+          <li>
+            <a href="/" className="cursor-pointer mb-2 hover:text-red-800 text-red-500 ">
+              Logout
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -62,5 +69,6 @@ export default function Dashboard1() {
         {renderComponent()}
       </div>
     </div>
+    </ProtectedRoute>
   );
 }

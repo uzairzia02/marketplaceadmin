@@ -4,7 +4,8 @@ const nextConfig = {
         remotePatterns: [{
             protocol: 'https',
             hostname: 'cdn.sanity.io',
-        }]
+        }],
+        domains: ["readymadeui.com" ]
     }
 };
 

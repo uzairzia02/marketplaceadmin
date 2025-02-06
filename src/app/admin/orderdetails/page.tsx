@@ -7,6 +7,11 @@ import ProtectedRoute from "../../components/protected/page";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 
+interface CartItem {
+  name: string;
+  image: string;
+}
+
 interface Shipping {
   _id: string;
   firstName: string;
@@ -21,13 +26,14 @@ interface Shipping {
   grandTotal: number;
   orderDate: string;
   status: string | null;
-  cartItems: {
-    map(
-      arg0: (item: any) => React.JSX.Element
-    ): React.ReactNode | Iterable<React.ReactNode>;
-    name: string;
-    image: string;
-  };
+  cartItems: CartItem[]
+  // cartItems: {
+  //   map(
+  //     arg0: (item: any) => React.JSX.Element
+  //   ): React.ReactNode | Iterable<React.ReactNode>;
+  //   name: string;
+  //   image: string;
+  // };
 }
 
 export default function Orders() {
@@ -84,6 +90,7 @@ export default function Orders() {
       );
       Swal.fire("Deleted!", "Your order has been deleted.", "success");
     } catch (error) {
+      console.error("Failed to delete order:", error)
       Swal.fire("Error!", "Failed to delete order.", "error");
     }
   };
@@ -104,13 +111,14 @@ export default function Orders() {
         Swal.fire("Delivered!", "Order has been delivered.", "success");
       }
     } catch (error) {
+      console.error("Failed to delete order:", error)
       Swal.fire("Error!", "Failed to update order status.", "error");
     }
   };
 
-  function handleStatus(_id: string, value: string): void {
-    throw new Error("Function not implemented.");
-  }
+  // function handleStatus(_id: string, value: string): void {
+  //   throw new Error("Function not implemented.");
+  // }
 
   return (
     <ProtectedRoute>

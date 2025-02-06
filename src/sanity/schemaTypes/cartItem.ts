@@ -1,4 +1,4 @@
-export default {
+const CartItemSchema = {
     name: 'cartItem',
     title: 'Cart Item',
     type: 'object',
@@ -27,3 +27,4 @@ export default {
       },
     ],
   };
+  export default CartItemSchema;

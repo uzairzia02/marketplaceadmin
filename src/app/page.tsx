@@ -1,8 +1,7 @@
-import Image from "next/image";
-import SignIn from "./signin/page";
+import AdminLogin from "./admin/page";
 
 export default function Home() {
   return (
-    <SignIn />
+    <AdminLogin />
   );
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaHeadphones } from "react-icons/fa";
 import { client } from "../../sanity/lib/client"; // Ensure you have your sanity client setup
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function SignIn() {
 
@@ -71,10 +72,12 @@ export default function SignIn() {
 
         <div className="grid md:grid-cols-2 items-center gap-8">
           <div className="max-md:order-1">
-            <img
+            <Image
               src="https://readymadeui.com/signin-image.webp"
               className="w-full aspect-[12/11] object-contain"
               alt="login-image"
+              width={100}
+              height={100}
             />
           </div>
 
