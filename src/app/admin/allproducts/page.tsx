@@ -3,7 +3,7 @@ import { client } from "@/sanity/lib/client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-import ProtectedRoute from "../../components/protected/page";
+import ProtectedRoute from "../../components/protected-route";
 
 interface Product {
   _id: string;

@@ -3,7 +3,7 @@ import { client } from "@/sanity/lib/client";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import ProtectedRoute from "../../components/protected/page";
+import ProtectedRoute from "../../components/protected-route";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 

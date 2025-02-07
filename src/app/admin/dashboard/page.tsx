@@ -4,7 +4,7 @@ import Orders from "../orderdetails/page";
 import AddProduct from "../addproduct/page";
 import AllProducts from "../allproducts/page";
 import { FaHeadphones } from "react-icons/fa";
-import ProtectedRoute from "@/app/components/protected/page";
+import ProtectedRoute from "@/app/components/protected-route";
 
 export default function Dashboard1() {
   const [selectedComponent, setSelectedComponent] = useState("Orders");
