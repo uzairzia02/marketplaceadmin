@@ -4,12 +4,15 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import ProtectedRoute from "../../components/protected-route";
-import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
 
 interface CartItem {
+  product?: {
+    name: string;
+  };
   name: string;
   image: string;
+  quantity: number;
+  price: number;
 }
 
 interface Shipping {
@@ -26,14 +29,7 @@ interface Shipping {
   grandTotal: number;
   orderDate: string;
   status: string | null;
-  cartItems: CartItem[]
-  // cartItems: {
-  //   map(
-  //     arg0: (item: any) => React.JSX.Element
-  //   ): React.ReactNode | Iterable<React.ReactNode>;
-  //   name: string;
-  //   image: string;
-  // };
+  cartItems: CartItem[];
 }
 
 export default function Orders() {
@@ -44,7 +40,7 @@ export default function Orders() {
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "shipping"]{
+        `*[_type == "shipping"] | order(_createdAt desc){
         _id,
         firstName,
         lastName,
@@ -59,8 +55,11 @@ export default function Orders() {
         orderDate,
         status,
         cartItems[] {
-          name,
-          image
+          quantity,
+          price,
+          product-> {
+            name
+          }
         }
       }`
       )
@@ -90,7 +89,7 @@ export default function Orders() {
       );
       Swal.fire("Deleted!", "Your order has been deleted.", "success");
     } catch (error) {
-      console.error("Failed to delete order:", error)
+      console.error("Failed to delete order:", error);
       Swal.fire("Error!", "Failed to delete order.", "error");
     }
   };
@@ -111,14 +110,10 @@ export default function Orders() {
         Swal.fire("Delivered!", "Order has been delivered.", "success");
       }
     } catch (error) {
-      console.error("Failed to delete order:", error)
+      console.error("Failed to delete order:", error);
       Swal.fire("Error!", "Failed to update order status.", "error");
     }
   };
-
-  // function handleStatus(_id: string, value: string): void {
-  //   throw new Error("Function not implemented.");
-  // }
 
   return (
     <ProtectedRoute>
@@ -126,7 +121,6 @@ export default function Orders() {
         <nav className="bg-blue-600 text=white flex justify-between w-[100%] h-20 items-center font-bold px-8 ">
           <h2 className="text-white text-3xl font-bold">Order Details</h2>
           <div className="flex space-x-4">
-            
             {["All", "pending", "shipped", "delivered"].map((status) => (
               <button
                 key={status}
@@ -140,7 +134,6 @@ export default function Orders() {
         </nav>
 
         <div className=" flex-1 p-6 overflow-y-auto w-[100%] justify-between ">
-          <h2 className="text-2xl font-bold mb-4 text-center ">Order</h2>
           <div className="bg-white rounded-lg shadow-sm ">
             <table className="w-[100%] text-center">
               <thead>
@@ -175,7 +168,7 @@ export default function Orders() {
                       <td>{order.postalCode}</td>
                       <td>{order.paymentMethod}</td>
                       <td>{order.grandTotal.toFixed(2)}</td>
-                      <td >
+                      <td>
                         {" "}
                         {new Date(order.orderDate).toLocaleDateString("en-US", {
                           year: "numeric",
@@ -226,20 +219,20 @@ export default function Orders() {
                           <p></p>
 
                           <ul>
-                            {order.cartItems.map((item) => (
+                            {order.cartItems.map((item, index) => (
                               <li
-                                className="flex items-center space-x-2"
-                                key={`${order._id}`}
+                                className="flex items-center space-x-4 border-2 justify-between "
+                                key={`${order._id}-${index}`}
                               >
-                                {item.name}
-                                {item.image && (
-                                  <Image
-                                    src={urlFor(item.image).url()}
-                                    alt="image"
-                                    width={100}
-                                    height={100}
-                                  />
-                                )}
+                                <span className="font-semibold min-w-max ">
+                                  {item.product?.name}
+                                </span>
+                                <span className="min-w-max ">
+                                  Qty: {item.quantity}
+                                </span>
+                                <span className="min-w-max ">
+                                  Price: ${item.price.toFixed(2)}
+                                </span>
                               </li>
                             ))}
                           </ul>

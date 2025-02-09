@@ -43,7 +43,7 @@ export default function AllProducts() {
       <div className="container mx-auto p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <div key={product._id} className="border rounded-lg p-4 shadow-md">
+            <div key={product._id} className="border rounded-lg p-4 shadow-md flex flex-col ">
               <Image
   src={product.image ? urlFor(product.image).url() : "/placeholder.jpg"}
   alt={product.name}
@@ -58,6 +58,25 @@ export default function AllProducts() {
               <p className={`font-semibold ${product.stock > 0 ? "text-green-600" : "text-red-600"}`}>
                 {product.stock > 0 ? "In Stock" : "Out of Stock"}
               </p>
+              <button
+              onClick={
+                async () => {
+                  try {
+                    await client.delete(product._id);
+                    setProducts(products.filter((p) => p._id !== product._id)
+                  )
+                  alert("✅ Product deleted successfully");
+                  ;
+                  } catch (error) {
+                    console.error("Error deleting product", error);
+                    alert("❌ Product not deleted because order is already in place for this product" )
+                  }
+              }}
+              className=" w-full p-2 bg-blue-600 text-white rounded mt-auto "
+              
+              >
+                Delete product
+              </button>
             </div>
           ))}
         </div>

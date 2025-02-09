@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { client } from "@/sanity/lib/client"
 import { v4 as uuidv4 } from 'uuid';
+import ProtectedRoute from '@/app/components/protected-route';
 
 interface Category {
   _id: string;
-  title: string;
+  name: string;
 }
 
 const AddProduct = () => {
@@ -28,7 +29,7 @@ const AddProduct = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const result = await client.fetch(`*[_type == "category"]{_id, title}`);
+        const result = await client.fetch(`*[_type == "category"]{_id, name}`);
         setCategories(result);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -100,7 +101,7 @@ const AddProduct = () => {
   };
 
   return (
-    <>
+    <ProtectedRoute>
       <div className="bg-blue-600 text=white flex justify-between w-[100%] h-20 items-center font-bold px-8 ">
         <h2 className="text-white text-3xl font-bold">Add New Product</h2>
       </div>
@@ -163,7 +164,7 @@ const AddProduct = () => {
             <option value="">Select Category</option>
             {categories.map((cat) => (
               <option key={cat._id} value={cat._id}>
-                {cat.title}
+                {cat.name}
               </option>
             ))}
           </select>
@@ -175,7 +176,7 @@ const AddProduct = () => {
           </button>
         </form>
       </div>
-    </>
+    </ProtectedRoute>
   );
 };
 

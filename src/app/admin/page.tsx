@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaHeadphones } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import ProtectedRoute from "../components/protected-route";
 
 export default function SignIn() {
   const router = useRouter();
