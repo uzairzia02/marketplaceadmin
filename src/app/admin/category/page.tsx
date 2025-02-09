@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { client } from "@/sanity/lib/client";
 import { v4 as uuidv4 } from 'uuid';
 import ProtectedRoute from '@/app/components/protected-route';
@@ -12,7 +11,6 @@ interface Category {
 }
 
 const CategoryPage = () => {
-  const router = useRouter();
   const [categories, setCategories] = useState<Category[]>([]);
   const [newCategory, setNewCategory] = useState('');
   const [loading, setLoading] = useState(false);
