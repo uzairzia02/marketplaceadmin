@@ -8,6 +8,14 @@ const categorySchema = {
             type: 'string',
             title: 'Category',
         },
+        {
+            name: 'image',
+            type: 'image',
+            title: 'Image',
+            options: {
+                hotspot: true,
+            },
+        }
     ],
 };
 
