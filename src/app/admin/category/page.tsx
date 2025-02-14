@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { client } from "@/sanity/lib/client";
 import { v4 as uuidv4 } from 'uuid';
 import ProtectedRoute from '@/app/components/protected-route';
+import Image from 'next/image';
 
 interface Category {
   _id: string;
@@ -159,7 +160,7 @@ const CategoryPage = () => {
         <ul className="mt-2">
           {categories.map((cat) => (
             <li key={cat._id} className="p-2 border-b flex items-center gap-4 ">
-              {cat.image && <img src={cat.image} alt={cat.name} className="w-12 h-12 object-cover rounded" />}
+              {cat.image && <Image src={cat.image} alt={cat.name} width={100} height={100} className="w-12 h-12 object-cover rounded" />}
               {editCategoryId === cat._id ? (
                 <div className="flex items-center gap-2">
                   <input

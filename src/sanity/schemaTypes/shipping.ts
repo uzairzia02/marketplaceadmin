@@ -45,10 +45,10 @@ const ShippingSchema = {
   preview: {
     select: {
       id: '_id',
-      contact: 'contactNumber', // This is a string in your schema
+      contact: 'contactNumber',
       total: 'grandTotal',
     },
-    prepare(selection: Record<string, any>) {
+    prepare(selection: { id: string; contact: string; total: number }) {
       return {
         title: `Order # ${selection.id}`,
         subtitle: `${selection.contact} - $${selection.total}`,
