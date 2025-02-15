@@ -48,7 +48,7 @@ const ShippingSchema = {
       contact: 'contactNumber',
       total: 'grandTotal',
     },
-    prepare(selection: { id: string; contact: string; total: number }) {
+    prepare(selection: Record<string, unknown>) {
       return {
         title: `Order # ${selection.id}`,
         subtitle: `${selection.contact} - $${selection.total}`,
