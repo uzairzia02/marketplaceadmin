@@ -24,7 +24,8 @@ const CategoryPage = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const result = await client.fetch(`*[_type == "category"]{_id, name, "image": image.asset->url}`);
+        const result = await client.fetch(`*[_type == "category"]{_id, name, image}`);
+        
         setCategories(Array.isArray(result) ? result : []);
       } catch (error) {
         console.error('Error fetching categories:', error);

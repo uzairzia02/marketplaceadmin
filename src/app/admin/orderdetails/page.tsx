@@ -170,10 +170,13 @@ export default function Orders() {
                       <td>{order.grandTotal.toFixed(2)}</td>
                       <td>
                         {" "}
-                        {new Date(order.orderDate).toLocaleDateString("en-US", {
+                        {new Date(order.orderDate).toLocaleString("en-US", {
                           year: "numeric",
-                          month: "long",
+                          month: "short",
                           day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
                         })}{" "}
                       </td>
                       <td>
